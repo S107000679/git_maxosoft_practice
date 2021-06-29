@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My first Vue app</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+  <h2>考幾分</h2>
+  <input type="text" v-model="score">
+  
+  <h2>顏色</h2>
+  <ul>
+	<li v-for="color in colors">
+	{{color}}
+	</li>
+  </ul>
+  <h2>父親</h2>
+  <ul>
+	<li v-for="home in homes">
+	{{home.father}}
+	</li>
+  </ul>
+  
+  <h2>匯幣</h2>
+  <input type="text" v-model="mes">
+  <div class ="hi">
+  <h5>英鎊</h5>
+  {{ mes *40}}
+  <h5>美金</h5>
+  {{ mes *30}}
+  </div>
+  
+  <div v-if ="score>=60">真棒</div>
+  <div v-if ="score<=59">真糟糕</div>
+	{{score *0.5}}
+	<div class="box"></div>
+	{{ message }}
+	<div v-if ="loading">error</div>
+	
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',//element元素
+      data: {
+		mes: 'score',
+        message: 'Hello Vue!',
+		score: 40,
+		//loading: false	
+		loading: true,
+		colors: ['red','green','blue'],
+		homes:[
+			{father:'tom'},
+			{father:'bob'}
+		]
+      }
+    })
+  </script>
+</body>
+</html> 
