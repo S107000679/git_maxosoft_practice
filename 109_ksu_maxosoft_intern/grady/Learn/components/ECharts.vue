@@ -1,0 +1,13 @@
+<template>
+ <echarts :options="option" :auto-resize="true"></echarts>
+</template>
+
+<script>
+export default {
+  data() { return { option:{}, option4Data: [ {value: 39, name: '5000元以下'}, {value: 19, name: '1000-2000元'}, {value: 22, name: '2000-3000元'}, {value: 11, name: '3000-4000元'}, {value: 19, name: '4000元-5000元'}, {value: 12, name: '50000元以上'}, ] }
+  },
+  created () { this.getEpyData()
+  },
+  methods: { getEpyData() { this.option = { tooltip: {  //  提示框 trigger: 'item', // 触发类型: 'item'：数据项图形触发、'axis':坐标轴触发、'none': 不触发  padding:[10,30,10,30], // 内边距 从第一个开始，上-右-下-左 backgroundColor:'rgba(255,255,255,0.8)', // 背景颜色 extraCssText:'box-shadow: 0px 0px 8px 0px rgba(150,178,191,0.5); ', // 额外添加到浮层的css样式,本样式为阴影。 textStyle : {  // 提示框浮层的文本样式 color: '#333333', fontFamily: 'PingFangSC, PingFangSC-Regular', fontSize: 12, }, formatter: '{b} , {d}%' // 提示框浮层内容格式器，支持字符串模板和回调函数两种形式。 /** 本图中使用的是 字符串模版。  根据情况使用不同的形式 折线（区域）图、柱状（条形）图、K线图 : {a}（系列名称），{b}（类目值），{c}（数值）, {d}（无） 散点图（气泡）图 : {a}（系列名称），{b}（数据名称），{c}（数值数组）, {d}（无） 地图 : {a}（系列名称），{b}（区域名称），{c}（合并数值）, {d}（无） 饼图、仪表盘、漏斗图: {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比） */ }, legend: { // 图例组件，泛指图形以外的指示器 align: 'left',  // 图例标记和文本的对齐 orient: 'vertical', // 图例列表的布局朝向 itemWidth: 10, // 更改legend图标大小 itemGap: 10, // 图例每项之间的间隔 bottom: 20, // 图例组件离容器下侧的距离 height: '18%', // 图例组件的高度。默认自适应 icon: 'circle',  // 图例项的 icon : 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none' 也可以通过 'image://http://xxx.xxx.xxx/a/b.png' 设置为图片 data: this.option4Data, // 图例的数据数组。 formatter: (name) => {   // 用来格式化图例文本，支持字符串模板和回调函数两种形式。 let data = this.option4Data let total = 0 let target for (let i = 0; i < data.length; i++) { total += data[i].value if (data[i].name === name) { target = data[i].value } } let arr = [ '{a|' + name + '}{c|' + ((target / total) * 100).toFixed(0) + '%}' ] return arr.join('\n') }, textStyle: { // 图例的公用文本样式 rich: {  // 可以自定义富文本样式。利用富文本样式 a: { fontSize: 12, align: 'left', padding:[0,10,0,0] }, b: { fontSize: 12, align: 'center', width: 20 }, c: { fontSize: 12, align: 'left', width: 25 } } } }, color: ["#2d99ff", "#e0effd", "#83cddd", "#83cfff", "#86e3c8", "#e2f1ff"],  // 调色盘颜色列表。如果系列没有设置颜色，则会依次循环从该列表中取颜色作为系列颜色。 series: [ { name: '工资明细', type: 'pie', // 饼图类 top: 0,  //  chart组件离容器上侧的距离。 radius: ['33.5%', '60%'],  // 饼图的半径。 center: ['50%', '35%'], // 饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标。 avoidLabelOverlap: false, // 是否启用防止标签重叠策略，默认开启，在标签拥挤重叠的情况下会挪动各个标签的位置，防止标签间的重叠 label: {  // 饼图图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。 show: false, }, labelLine: {  // 标签的视觉引导线配置。在 label 位置 设置为'outside'的时候会显示视觉引导线。 show: false }, data: this.option4Data } ] } }
+  } }
+</script>
